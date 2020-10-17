@@ -5,7 +5,6 @@ namespace AssemblyBrowser
 {
     public class MyCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
         private Action<object> execute;
         private Func<object, bool> canExecute;
 

@@ -8,6 +8,6 @@
         Title="MainWindow" Height="376" Width="632">
     <Grid>
         <TreeView HorizontalAlignment="Left" Height="277" Margin="10,10,0,0" VerticalAlignment="Top" Width="606"/>
-        <Button Content="Choose assembly" HorizontalAlignment="Left" Margin="266,304,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Command="{Binding OpenFile}" Content="Choose assembly" HorizontalAlignment="Left" Margin="266,304,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
