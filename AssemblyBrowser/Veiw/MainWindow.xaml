@@ -7,7 +7,26 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="376" Width="632">
     <Grid>
-        <TreeView HorizontalAlignment="Left" Height="277" Margin="10,10,0,0" VerticalAlignment="Top" Width="606"/>
+        <TreeView ItemsSource="{Binding Namespaces}" HorizontalAlignment="Left" Height="277" Margin="10,10,0,0" VerticalAlignment="Top" Width="606">
+            <TreeView.ItemTemplate>
+                <DataTemplate>
+                    <TreeViewItem Header="{Binding Name}" ItemsSource="{Binding Classes}" BorderThickness="0">
+                        <TreeViewItem.ItemTemplate>
+                            <DataTemplate>
+                                <TreeViewItem Header="{Binding Name}" ItemsSource="{Binding Members}" BorderThickness="0" IsExpanded="True">
+                                    <TreeViewItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding FullName}"/>
+                                        </DataTemplate>
+                                    </TreeViewItem.ItemTemplate>
+                                </TreeViewItem>
+                            </DataTemplate>
+                        </TreeViewItem.ItemTemplate>
+                    </TreeViewItem>
+                </DataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
         <Button Command="{Binding OpenFile}" Content="Choose assembly" HorizontalAlignment="Left" Margin="266,304,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBlock HorizontalAlignment="Left" Margin="46,320,0,0" TextWrapping="Wrap" Text="{Binding AssemblyName}" VerticalAlignment="Top" Width="84"/>
     </Grid>
 </Window>

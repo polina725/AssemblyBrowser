@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace AssemblyLib
 {
-    class PropertyNode : INode
+    public class PropertyNode : INode
     {
         public string Type { get; }
         public string Name { get; }

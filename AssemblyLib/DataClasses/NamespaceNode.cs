@@ -26,7 +26,7 @@ namespace AssemblyLib
             {
                 tmp += ("\t" + cl + "\n");
             }
-            return Name+"\n"+tmp;
+            return Name;//+"\n"+tmp;
         }
     }
 }

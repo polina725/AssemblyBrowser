@@ -1,4 +1,6 @@
 ﻿using AssemblyBrowser.Model;
+using AssemblyLib;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -6,7 +8,27 @@ namespace AssemblyBrowser.ViewModel
 {
     public class AppViewModel : INotifyPropertyChanged
     {
-        private AssemblyModel ass;
+        private string assemblyName = "mem";
+        public string AssemblyName 
+        { 
+            get { return assemblyName; }
+            set
+            {
+                assemblyName = value;
+                OnPropertyChanged("AssemblyName");
+            }
+        }
+
+        private List<NamespaceNodeView> namespaces;
+        public List<NamespaceNodeView> Namespaces
+        {
+            get { return namespaces; }
+            set
+            {
+                namespaces = value;
+                OnPropertyChanged("Namespaces");
+            }
+        }
 
         private MyCommand openFile;
         public MyCommand OpenFile
@@ -19,7 +41,8 @@ namespace AssemblyBrowser.ViewModel
                       IDialogService dialogService = new DialogService();
                       if (dialogService.Open())
                       {
-                          ass = new AssemblyModel(dialogService.FilePath);
+                          Namespaces = new AssemblyNode(dialogService.FilePath).Namespaces.ConvertAll(assemblyNamespace => new NamespaceNodeView((NamespaceNode)assemblyNamespace));
+                          AssemblyName = dialogService.FilePath;
                       }
                   }));
             }
@@ -29,8 +52,7 @@ namespace AssemblyBrowser.ViewModel
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

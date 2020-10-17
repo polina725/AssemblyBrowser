@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace AssemblyLib
 {
-    class FieldNode : INode
+    public class FieldNode : INode
     {
         public string Type { get; }
         public string Name { get; }
@@ -13,7 +13,6 @@ namespace AssemblyLib
             Type = GetInfo.GetTypeName(field.FieldType);
             Name = field.Name;
         }
-
 
         public override string ToString()
         {

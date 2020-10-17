@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace AssemblyLib
 {
-    class MethodNode : INode
+    public class MethodNode : INode
     {
         internal ParameterInfo[] Parameters { get; }
         private string modifiers;
@@ -29,8 +29,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            return GetInfo.GetSignature(this);
+            return modifiers + " " + GetInfo.GetSignature(this);
         }
-
     }
 }

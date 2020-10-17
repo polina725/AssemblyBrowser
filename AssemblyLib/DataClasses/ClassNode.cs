@@ -5,7 +5,7 @@ using AssemblyLib.Reflection;
 
 namespace AssemblyLib
 {
-    class ClassNode : INode
+    public class ClassNode : INode
     {
         private string modifiers;
 
@@ -30,19 +30,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            string tmp = "";
-            tmp += (smth(Fields) + smth(Properties) + smth(Methods));
-            return modifiers + " " + Name + "\n" + tmp + "\n";
-        }
-
-        private string smth(List<INode> l)
-        {
-            string tmp = "";
-            foreach (INode d in l)
-            {
-                tmp += ("\t\t" + d + "\n");
-            }
-            return tmp;
+            return modifiers + " " + Name;
         }
     }
 }

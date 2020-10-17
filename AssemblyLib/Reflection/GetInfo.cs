@@ -46,7 +46,7 @@ namespace AssemblyLib.Reflection
             string typeName = "";
             string tmp = t.GetGenericTypeDefinition().Name;
             int ind = tmp.LastIndexOf('`');
-            typeName += (tmp.Substring(0,ind+1) + "<");
+            typeName += (tmp.Substring(0,ind) + "<");
             Type[] argTypes = t.GetGenericArguments();
             foreach (Type argType in argTypes)
             {
