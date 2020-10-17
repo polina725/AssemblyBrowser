@@ -1,8 +1,10 @@
 ﻿using AssemblyBrowser.Model;
 using AssemblyLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace AssemblyBrowser.ViewModel
 {
@@ -41,7 +43,13 @@ namespace AssemblyBrowser.ViewModel
                       IDialogService dialogService = new DialogService();
                       if (dialogService.Open())
                       {
-                          Namespaces = new AssemblyNode(dialogService.FilePath).Namespaces.ConvertAll(assemblyNamespace => new NamespaceNodeView((NamespaceNode)assemblyNamespace));
+                          try
+                          {
+                              Namespaces = new AssemblyNode(dialogService.FilePath).Namespaces.ConvertAll(assemblyNamespace => new NamespaceNodeView((NamespaceNode)assemblyNamespace));
+                          }catch(Exception ex)
+                          {
+                              MessageBox.Show(ex.Message);
+                          }
                           AssemblyName = dialogService.FilePath;
                       }
                   }));

@@ -7,5 +7,6 @@ namespace AssemblyLib
     public interface INode
     {
         public string Name { get; }
+    //    public string Modifiers { get; }
     }
 }

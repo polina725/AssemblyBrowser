@@ -27,9 +27,28 @@ namespace AssemblyLib
                 modifiers += "static ";           
         }
 
+        private string GetSignature(MethodNode method)
+        {
+            string signature = "";
+            signature += (method.ReturnType + " " + method.Name + "(");
+            if (method.Parameters == null)
+                return signature + ")";
+            foreach (ParameterInfo p in method.Parameters)
+            {
+                if (p.IsOut)
+                    signature += "out ";
+                signature += (GetInfo.GetTypeName(p.ParameterType) + " " + p.Name + ", ");
+            }
+            while (signature.IndexOf('&') != -1)
+            {
+                signature.Replace('&', ' ');
+            }
+            return signature.Substring(0, signature.Length - 2) + ")";
+        }
+
         public override string ToString()
         {
-            return modifiers + " " + GetInfo.GetSignature(this);
+            return modifiers + " " + GetSignature(this);
         }
     }
 }

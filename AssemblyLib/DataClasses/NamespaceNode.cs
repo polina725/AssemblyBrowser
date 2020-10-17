@@ -21,12 +21,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            string tmp = "";
-            foreach(ClassNode cl in Classes)
-            {
-                tmp += ("\t" + cl + "\n");
-            }
-            return Name;//+"\n"+tmp;
+            return Name;
         }
     }
 }
