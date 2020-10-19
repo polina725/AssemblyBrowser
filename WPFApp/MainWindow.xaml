@@ -1,0 +1,56 @@
+﻿<Window x:Class="WPFApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp"
+        mc:Ignorable="d"
+        x:Name="Window"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="182*"/>
+            <ColumnDefinition Width="619*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel 
+            x:Name="MainPanel"            
+            Margin="5,5,10,0" 
+            Orientation="Horizontal" 
+            VerticalAlignment="Top"   
+            Grid.ColumnSpan="2" Height="419">
+            <TreeView 
+                x:Name="MainTreeView" 
+                VerticalAlignment="Top"   
+                DataContext="{Binding AssemblyStruct}" 
+                ItemsSource="{Binding Namespaces}" Margin="5,5,5,5" Width="651" Height="384" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding DataTypes}">
+                        <TextBlock Text="{Binding Name}"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Fields}">
+                                <TextBlock Text="{Binding FullName}"/>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <TextBlock Text="{Binding FullName}"/>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <Button 
+                x:Name="LoadAssemblyButton" 
+                Command="{Binding LoadAssemblyCommand}"
+                Content="LoadAssembly" 
+                Padding="10"
+                RenderTransformOrigin="0.5,0.5"
+                VerticalAlignment="Top"    
+                 Margin="5,5,5,5" Width="100"
+                >
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</Window>

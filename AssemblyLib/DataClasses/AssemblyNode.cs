@@ -1,6 +1,7 @@
 ﻿using AssemblyLib.Reflection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace AssemblyLib
@@ -12,21 +13,30 @@ namespace AssemblyLib
 
         public AssemblyNode(string pathToAssembly)
         {
+            //try
+            //{
+            Path = pathToAssembly;
+            Assembly ass = Assembly.LoadFrom(pathToAssembly);
+            Namespaces = new List<INode>();
+            Type[] types;
             try
             {
-                Assembly ass = Assembly.LoadFrom(pathToAssembly);
-                Path = pathToAssembly;
-                Namespaces = new List<INode>();
-                Dictionary<string, List<Type>> namespaceAndItsClasses = BindClassesWithNamespaces(ass.GetTypes());
-                foreach (KeyValuePair<string, List<Type>> pair in namespaceAndItsClasses)
-                {
-                    Namespaces.Add(new NamespaceNode(pair.Key, pair.Value));
-                }
+                types = ass.GetTypes();
             }
-            catch(Exception ex)
+            catch (ReflectionTypeLoadException e)
             {
-                throw ex;
+                types = e.Types.Where(t => t != null).ToArray();
             }
+            Dictionary<string, List<Type>> namespaceAndItsClasses = BindClassesWithNamespaces(types);
+            foreach (KeyValuePair<string, List<Type>> pair in namespaceAndItsClasses)
+            {
+                Namespaces.Add(new NamespaceNode(pair.Key, pair.Value));
+            }
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         private Dictionary<string, List<Type>> BindClassesWithNamespaces(Type[] types)
@@ -34,9 +44,17 @@ namespace AssemblyLib
             Dictionary<string, List<Type>> namespaceAndItsClasses = new Dictionary<string, List<Type>>();
             foreach (Type t in types)
             {
-                if (!namespaceAndItsClasses.ContainsKey(t.Namespace))
-                    namespaceAndItsClasses.Add(t.Namespace, new List<Type>());
-                namespaceAndItsClasses.TryGetValue(t.Namespace, out List<Type> classes);
+                string namespaceS;
+                if (t.Namespace != null)
+                    namespaceS = t.Namespace;
+                else
+                    namespaceS = "<>";
+                if (!namespaceAndItsClasses.ContainsKey(namespaceS))
+                {
+                    List<Type> tmp = new List<Type>();
+                    namespaceAndItsClasses.Add(namespaceS, tmp);
+                }
+                namespaceAndItsClasses.TryGetValue(namespaceS, out List<Type> classes);
                 classes.Add(t);
             }
             return namespaceAndItsClasses;

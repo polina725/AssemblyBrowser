@@ -5,6 +5,8 @@ namespace AssemblyLib
 {
     public class PropertyNode : INode
     {
+        private string modifiers;
+
         public string Type { get; }
         public string Name { get; }
 
@@ -12,11 +14,12 @@ namespace AssemblyLib
         {
             Type = GetInfo.GetTypeName(prop.PropertyType);
             Name = prop.Name;
+            modifiers = "public ";
         }
 
         public override string ToString()
         {
-            return Type + " " + Name;
+            return modifiers + Type + " " + Name;
         }
     }
 }

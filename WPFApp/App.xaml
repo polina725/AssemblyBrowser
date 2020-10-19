@@ -1,9 +1,10 @@
-﻿<Application x:Class="AssemblyBrowser.App"
+﻿<Application x:Class="WPFApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:AssemblyBrowser"
+             xmlns:local="clr-namespace:WPFApp"
              StartupUri="Veiw/MainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
 </Application>
+

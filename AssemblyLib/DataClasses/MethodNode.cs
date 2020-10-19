@@ -1,5 +1,6 @@
 ﻿using AssemblyLib.Reflection;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace AssemblyLib
 {
@@ -7,6 +8,7 @@ namespace AssemblyLib
     {
         internal ParameterInfo[] Parameters { get; }
         private string modifiers;
+        private bool isExtension;
 
         public string Name { get; }
         public string ReturnType { get; }
@@ -15,6 +17,7 @@ namespace AssemblyLib
         {
             Name = method.Name;
             ReturnType = GetInfo.GetTypeName(method.ReturnType);
+            Parameters = method.GetParameters();
             if (method.IsPublic)
             {
                 modifiers += "public ";
@@ -24,14 +27,15 @@ namespace AssemblyLib
             else
                 modifiers += "private ";
             if (method.IsStatic)
-                modifiers += "static ";           
+                modifiers += "static ";
+            isExtension = method.IsDefined(typeof(ExtensionAttribute), false);
         }
 
         private string GetSignature(MethodNode method)
         {
             string signature = "";
             signature += (method.ReturnType + " " + method.Name + "(");
-            if (method.Parameters == null)
+            if (method.Parameters.Length == 0)
                 return signature + ")";
             foreach (ParameterInfo p in method.Parameters)
             {
@@ -48,7 +52,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            return modifiers + " " + GetSignature(this);
+            return modifiers + GetSignature(this);
         }
     }
 }

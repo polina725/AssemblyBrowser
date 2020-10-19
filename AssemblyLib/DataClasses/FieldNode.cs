@@ -22,7 +22,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            return Type + " " + Name;
+            return modifiers + Type + " " + Name;
         }
     }
 }

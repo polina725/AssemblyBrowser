@@ -8,7 +8,6 @@ namespace AssemblyLib
     public class ClassNode : INode
     {
         private string modifiers = "";
-
         public string Name { get; }
         public List<INode> Fields { get; }
         public List<INode> Properties { get; }
@@ -16,11 +15,12 @@ namespace AssemblyLib
 
         internal ClassNode(Type t)
         {
+            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance; 
             Name = GetInfo.GetTypeName(t);
-            modifiers = GetAttributes(t) + GetTypeClass(t);
-            Properties = GetListOfData(t.GetProperties());
-            Fields = GetListOfData(t.GetFields());
-            Methods = GetListOfData(t.GetMethods());
+            modifiers = (t.IsPublic ? "public " : "private ") + GetAttributes(t) + GetTypeClass(t);
+            Properties = GetListOfData(t.GetProperties(flags));
+            Fields = GetListOfData(t.GetFields(flags));
+            Methods = GetListOfData(t.GetMethods(flags));
         }
 
         private List<INode> GetListOfData(MemberInfo[] members)
@@ -64,7 +64,7 @@ namespace AssemblyLib
 
         public override string ToString()
         {
-            return modifiers + " " + Name;
+            return modifiers + Name;
         }
     }
 }
