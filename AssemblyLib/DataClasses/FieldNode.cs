@@ -1,4 +1,5 @@
-﻿using AssemblyLib.Reflection;
+﻿using AssemblyLib.DataClasses;
+using AssemblyLib.Reflection;
 
 using System.Reflection;
 
@@ -6,23 +7,20 @@ namespace AssemblyLib
 {
     public class FieldNode : INode
     {
-        private string modifiers = "";
-
         public string Type { get; }
         public string Name { get; }
+        public ModificatorsInfo Modificators { get; }
 
         internal FieldNode(FieldInfo field)
         {
-            Type = GetInfo.GetTypeName(field.FieldType);
+            Type = GetNames.GetTypeName(field.FieldType);
             Name = field.Name;
-            modifiers = field.IsPublic ? "public " : "private ";
-            if (field.IsStatic)
-                modifiers += "static ";
+            Modificators = new ModificatorsInfo(field);
         }
 
-        public override string ToString()
+        public string GetFullName()
         {
-            return modifiers + Type + " " + Name;
+            return Modificators.AccessModificatorString + " " + Modificators.TypeAttributeString + " " + Type + " " + Name;
         }
     }
 }

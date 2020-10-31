@@ -16,8 +16,16 @@ namespace AssemblyLib
             //try
             //{
             Path = pathToAssembly;
-            Assembly ass = Assembly.LoadFrom(pathToAssembly);
-            Namespaces = new List<INode>();
+            Assembly ass;
+            try
+            {
+                ass = Assembly.LoadFrom(pathToAssembly);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+    Namespaces = new List<INode>();
             Type[] types;
             try
             {
@@ -32,11 +40,6 @@ namespace AssemblyLib
             {
                 Namespaces.Add(new NamespaceNode(pair.Key, pair.Value));
             }
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw ex;
-            //}
         }
 
         private Dictionary<string, List<Type>> BindClassesWithNamespaces(Type[] types)

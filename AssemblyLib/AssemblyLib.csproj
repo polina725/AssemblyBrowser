@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utilities\CompilerAttr.cs" />
+    <Compile Include="Utilities\ModificatorsInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataClasses\AssemblyNode.cs" />
     <Compile Include="DataClasses\ClassNode.cs" />
@@ -51,7 +53,8 @@
     <Compile Include="DataClasses\MethodNode.cs" />
     <Compile Include="DataClasses\NamespaceNode.cs" />
     <Compile Include="DataClasses\PropertyNode.cs" />
-    <Compile Include="Reflection\GetInfo.cs" />
+    <Compile Include="Utilities\GetNames.cs" />
+    <Compile Include="Utilities\GetModificators.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

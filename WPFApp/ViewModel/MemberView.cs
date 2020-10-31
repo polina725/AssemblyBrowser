@@ -21,17 +21,17 @@ namespace AssemblyBrowser.Model
 
         public MemberView(FieldNode field)
         {
-            FullName = field.ToString();
+            FullName = field.GetFullName();
         }
 
         public MemberView(PropertyNode prop)
         {
-            FullName = prop.ToString();
+            FullName = prop.GetFullName();
         }
 
         public MemberView(MethodNode method)
         {
-            FullName = method.ToString();
+            FullName = method.GetFullName();
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace AssemblyLib.Reflection
 {
-    internal class GetInfo
+    internal class GetNames
     {
         internal static string GetTypeName(Type t)
         {

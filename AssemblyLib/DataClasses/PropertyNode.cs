@@ -1,25 +1,33 @@
-﻿using AssemblyLib.Reflection;
+﻿using AssemblyLib.DataClasses;
+using AssemblyLib.Reflection;
 using System.Reflection;
+using static AssemblyLib.Reflection.GetModificators;
 
 namespace AssemblyLib
 {
     public class PropertyNode : INode
     {
-        private string modifiers;
-
         public string Type { get; }
         public string Name { get; }
+        public ModificatorsInfo Modificators { get; }
+        public PropertySetGet GetModificator { get; }
+        public string GetModificatorString { get { return GetGetString(GetModificator); } }
+        public PropertySetGet SetModificator { get; }
+        public string SetModificatorString { get { return GetGetString(SetModificator); } }
 
         internal PropertyNode(PropertyInfo prop)
         {
-            Type = GetInfo.GetTypeName(prop.PropertyType);
+            Type = GetNames.GetTypeName(prop.PropertyType);
             Name = prop.Name;
-            modifiers = "public ";
+            Modificators = new ModificatorsInfo();
+            GetModificator = GetGetModificator(prop);
+            SetModificator = GetSetModificator(prop);
         }
 
-        public override string ToString()
+        public string GetFullName()
         {
-            return modifiers + Type + " " + Name;
+            return Modificators.AccessModificatorString + " " + Modificators.TypeAttributeString + " " + Type + " " + Name + " { " + GetModificatorString + "; " + SetModificatorString + " }";
         }
+
     }
 }
