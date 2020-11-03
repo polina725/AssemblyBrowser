@@ -13,7 +13,7 @@ namespace AssemblyLib
         public PropertySetGet GetModificator { get; }
         public string GetModificatorString { get { return GetGetString(GetModificator); } }
         public PropertySetGet SetModificator { get; }
-        public string SetModificatorString { get { return GetGetString(SetModificator); } }
+        public string SetModificatorString { get { return GetSetString(SetModificator); } }
 
         internal PropertyNode(PropertyInfo prop)
         {

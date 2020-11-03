@@ -25,7 +25,7 @@ namespace AssemblyLib
             {
                 throw ex;
             }
-    Namespaces = new List<INode>();
+            Namespaces = new List<INode>();
             Type[] types;
             try
             {
