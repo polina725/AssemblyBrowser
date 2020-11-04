@@ -21,7 +21,7 @@ namespace Test
         [TestInitialize]
         public void Init()
         {
-            ass = new AssemblyNode("D:\\3course\\5sem\\SPP\\Faker\\Faker\\bin\\Debug\\Faker.dll");
+            ass = new AssemblyNode("..\\..\\..\\Faker.dll");
             int[] indexesOfCheckedNamespaces = { 1, 6 };
             foreach (int ind in indexesOfCheckedNamespaces)
             {
